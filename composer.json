@@ -1,0 +1,38 @@
+{
+    "name": "devzzk/php-ai-caller",
+    "description": "通用 PHP AI 调用扩展包，提供 AI 接口调用、AI 对话、AI 生成等能力",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Devzzk\\PhpAiCaller\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Devzzk\\PhpAiCaller\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "authors": [
+        {
+            "name": "devzzk"
+        }
+    ],
+    "keywords": [
+        "ai",
+        "api",
+        "http-client",
+        "utility"
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
+}
