@@ -114,8 +114,8 @@ PROMPT;
         $patterns = [
             '/不超过(\d+)/u'     => 'max_chars',
             '/至少(\d+)/u'      => 'min_chars',
-            '/用(.*?)输出/u'    => 'output_format',
             '/([\u4e00-\u9fa5]+)风格/u' => 'style',
+            '/用(.*?)输出/u'    => 'output_format',
         ];
 
         foreach ($patterns as $pattern => $key) {
