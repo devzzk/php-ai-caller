@@ -12,7 +12,37 @@ composer require devzzk/php-ai-caller
 
 ## 快速开始
 
-### AI 对话与生成
+### 容器与依赖注入（推荐）
+
+```php
+use Devzzk\PhpAiCaller\Container\Container;
+use Devzzk\PhpAiCaller\Container\AiServiceProvider;
+use Devzzk\PhpAiCaller\Ai\Generator;
+use Devzzk\PhpAiCaller\Ai\SemanticAnalyzer;
+use Devzzk\PhpAiCaller\Ai\Conversation;
+use Devzzk\PhpAiCaller\HttpClient\Client;
+
+// 1) 创建容器并注册 AI 模块
+$container = new Container();
+
+$container->registerProvider(new AiServiceProvider([
+    'api_url' => 'https://api.openai.com/v1/chat/completions',
+    'api_key' => 'your-api-key',
+]));
+
+// 2) 从容器解析服务
+$generator = $container->make(Generator::class);
+
+// 3) 使用 — 与手动 new 完全一致
+$result = $generator->generate('用一句话介绍 PHP', ['model' => 'gpt-4']);
+echo $result['choices'][0]['message']['content'];
+
+// 同一容器内可解析任意已注册服务
+$conversation = $container->make(Conversation::class);
+$analyzer     = $container->make(SemanticAnalyzer::class);
+```
+
+### AI 对话与生成（手动构建）
 
 ```php
 use Devzzk\PhpAiCaller\HttpClient\Client;
@@ -215,7 +245,12 @@ src/
 │   ├── Generator.php           # 内容生成器
 │   └── SemanticAnalyzer.php    # 语义分析器
 ├── HttpClient/
-│   └── Client.php          # cURL HTTP 客户端
+│   └── Client.php              # cURL HTTP 客户端
+├── Container/
+│   ├── Container.php           # DI 容器（PSR-11）
+│   ├── Facade.php              # 静态代理基类
+│   ├── ServiceProvider.php     # 服务提供者接口
+│   └── AiServiceProvider.php   # AI 模块注册
 ├── Utility/
 │   ├── Arr.php             # 数组工具（点号路径）
 │   └── Str.php             # 字符串工具
